@@ -1,28 +1,51 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <myHeader/>
+    <myMain  :moviesCatalogue="moviesCatalogue"/>
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import myHeader from './components/myHeader.vue'
+import myMain from './components/myMain.vue'
+  const axios = require('axios');
 
 export default {
+  
   name: 'App',
+  data(){
+    return{
+      moviesCatalogue : []
+    }
+  },
   components: {
-    HelloWorld
+    myHeader,
+    myMain,
+  },
+    methods:{
+      getMovies(){
+    axios.get('https://api.themoviedb.org/3/search/movie?api_key=ec674a7dac50b060978edf782fd5605e&query=ghost')
+    .then((response)=>{
+      // handle success
+      console.log(response.data.results);
+      this.moviesCatalogue.push(response.data.results)
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+      }
+  },
+  mounted(){
+    this.getMovies()
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import url('./assets/style/general.scss');
 </style>
