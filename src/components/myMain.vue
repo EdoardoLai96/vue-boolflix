@@ -1,12 +1,14 @@
 <template>
 <div class="container">
     <div class="movie_box">
-        <ul v-for="(movie, index) in moviesCatalogue[0]" :key="index">
+        <div v-for="(movie, index) in moviesCatalogue[0]" :key="index" class="movie_card">
+        <ul>
             <li>{{movie.title}}</li>
-            <li>{{movie.title}}</li>
-            <li>{{movie.title}}</li>
-            <li>{{movie.title}}</li>
+            <li>{{movie.original_title}}</li>
+            <li>{{movie.original_language}}</li>
+            <li>{{movie.vote_average}}</li>
         </ul>
+        </div>
     </div>
 </div>
 </template>
@@ -28,8 +30,11 @@ export default {
         .movie_box{
             display: flex;
             flex-wrap: wrap;
-            ul{
+            .movie_card{
+                width: calc(100% / 10);
+             ul{
                 list-style: none;
+             }
             }
         }
     }
