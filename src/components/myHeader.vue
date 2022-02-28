@@ -4,8 +4,8 @@
               <img src="../assets/netflix-logo.png" alt="">
           </div>
           <form class="search_box text-end">
-             cerca film <input v-model="searchedText" type="text" name="" id="">
-             <button type="submit" @click.prevent="$emit('search', searchedText)">Search</button>
+             cerca film <input v-model="searchedText">
+             <button type="submit" @click.prevent="search()">Search</button>
           </form>
   </div>
 </template>
@@ -15,7 +15,13 @@ export default {
     name : "myHeader",
     data(){
         return{
-            searchedText : '',
+          searchedText: ''
+        }
+    },
+    methods:{
+        search(){
+            this.$emit("searchMovie", this.searchedText),
+            this.$emit("searchTvShow", this.searchedText)
         }
     }
 }

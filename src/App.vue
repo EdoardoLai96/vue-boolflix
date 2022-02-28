@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <myHeader @search="getMovies"/>
-    <myMain  :moviesCatalogue="moviesCatalogue"/>
+    <myHeader @searchMovie="getMovies" @searchTvShow="getTvShows"/>
+    <myMain  :moviesCatalogue="moviesCatalogue" :tvShowsCatalogue="tvShowsCatalogue"/>
     
   </div>
 </template>
@@ -16,7 +16,9 @@ export default {
   name: 'App',
   data(){
     return{
-      moviesCatalogue : []
+      moviesCatalogue : [],
+      moviePoster : 'https://image.tmdb.org/t/p/',
+      tvShowsCatalogue : [],
     }
   },
   components: {
@@ -27,20 +29,23 @@ export default {
     getMovies(keyword){
       axios.get('https://api.themoviedb.org/3/search/movie?api_key=ec674a7dac50b060978edf782fd5605e&query='+ keyword +'')
       .then((response)=>{
-        // handle success
-        console.log(response.data.results);
-        console.log(keyword)
-
         this.moviesCatalogue = response.data.results
       })
       .catch(function (error) {
         // handle error
         console.log(error);
       })
-      .then(function () {
-        // always executed
-      });
-    }
+    },
+    getTvShows(keyword){
+      axios.get('https://api.themoviedb.org/3/search/tv?api_key=ec674a7dac50b060978edf782fd5605e&query='+ keyword +'')
+      .then((response)=>{
+        this.tvShowsCatalogue = response.data.results
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+    },
 },
 }
 </script>
