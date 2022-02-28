@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <myHeader/>
+    <myHeader @search="getMovies"/>
     <myMain  :moviesCatalogue="moviesCatalogue"/>
     
   </div>
@@ -23,26 +23,25 @@ export default {
     myHeader,
     myMain,
   },
-    methods:{
-      getMovies(){
-    axios.get('https://api.themoviedb.org/3/search/movie?api_key=ec674a7dac50b060978edf782fd5605e&query=ghost')
-    .then((response)=>{
-      // handle success
-      console.log(response.data.results);
-      this.moviesCatalogue.push(response.data.results)
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .then(function () {
-      // always executed
-    });
-      }
-  },
-  mounted(){
-    this.getMovies()
-  }
+  methods:{
+    getMovies(keyword){
+      axios.get('https://api.themoviedb.org/3/search/movie?api_key=ec674a7dac50b060978edf782fd5605e&query='+ keyword +'')
+      .then((response)=>{
+        // handle success
+        console.log(response.data.results);
+        console.log(keyword)
+
+        this.moviesCatalogue = response.data.results
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+    }
+},
 }
 </script>
 

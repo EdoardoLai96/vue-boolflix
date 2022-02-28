@@ -3,16 +3,21 @@
           <div class=" logo_box">
               <img src="../assets/netflix-logo.png" alt="">
           </div>
-          <div class="col search_box text-end">
-             cerca film <input type="text" name="" id="">
-             <button>Search</button>
-          </div>
+          <form class="search_box text-end">
+             cerca film <input v-model="searchedText" type="text" name="" id="">
+             <button type="submit" @click.prevent="$emit('search', searchedText)">Search</button>
+          </form>
   </div>
 </template>
 
 <script>
 export default {
     name : "myHeader",
+    data(){
+        return{
+            searchedText : '',
+        }
+    }
 }
 </script>
 

@@ -1,11 +1,12 @@
 <template>
 <div class="container">
     <div class="movie_box">
-        <div v-for="(movie, index) in moviesCatalogue[0]" :key="index" class="movie_card">
+        <div v-for="(movie, index) in moviesCatalogue" :key="index" class="movie_card">
         <ul>
             <li>{{movie.title}}</li>
             <li>{{movie.original_title}}</li>
-            <li>{{movie.original_language}}</li>
+            <!-- <li>{{movie.original_language}}</li> -->
+            <lang-flag :iso="movie.original_language" />
             <li>{{movie.vote_average}}</li>
         </ul>
         </div>
@@ -14,11 +15,16 @@
 </template>
 
 <script>
+import LangFlag from 'vue-lang-code-flags';
+ 
 export default {
     name: "myMain",
     props: {
         moviesCatalogue: Array
-        }
+        },
+    components: {
+        LangFlag
+    }
 }
 </script>
 
