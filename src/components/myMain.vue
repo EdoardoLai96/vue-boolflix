@@ -1,67 +1,42 @@
 <template>
 <div class="container">
     <div class="movie_box">
-        <div v-for="(movie, index) in moviesCatalogue" :key="'movie-'+ index" class="movie_card">
-        <ul>
-            <li>Titolo: {{movie.title}}</li>
-            <li>Titolo Originale: {{movie.original_title}}</li>
-            <li>
-                Lingua: <lang-flag :iso="movie.original_language" />
-            </li>
-                Voto:
-                <font-awesome-icon icon="fa-star" v-for="(vote_in_stars, indice) in movieVotes[index]" :key="indice"/>
-            <li>
-                <img :src="'https://image.tmdb.org/t/p/w342/'+movie.poster_path">
-            </li>
-            <li class="overview">
-                <p>Overview:</p>
-                {{movie.overview}}
-            </li>
-        </ul>
-        </div>
-        <div v-for="(tvShow, index) in tvShowsCatalogue" :key="'tvShow-'+ index" class="movie_card">
-        <ul>
-            <li>Titolo: {{tvShow.name}}</li>
-            <li>Titolo Originale: {{tvShow.original_name}}</li>
-            <li>
-                Lingua:
-                <lang-flag :iso="tvShow.original_language" />
-            </li>
-            <li>
-                Voto:
-             <font-awesome-icon icon="fa-star" v-for="(vote_in_stars, indice) in tvShowVotes[index]" :key="indice"/>
-            </li>
-            <li>
-                <img :src="'https://image.tmdb.org/t/p/w342/'+tvShow.poster_path">
-            </li>
-            <li class="overview">
-                <p>Overview:</p>
-                {{tvShow.overview}}
-            </li>
-        </ul>
-        </div>
+        <myMovieCard :movie="movie" v-for="(movie, index) in moviesCatalogue" :key="'movie-'+ index" />
+      
+        <myTvShowCard :tvShow="tvShow" v-for="(tvShow, index) in tvShowsCatalogue" :key="'tvShow-'+ index" />
     </div>
 </div>
 </template>
 
 <script>
-import LangFlag from 'vue-lang-code-flags';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-
-library.add(faStar)
-
-
+import myMovieCard from '../components/partials/myMovieCard.vue';
+import myTvShowCard from '../components/partials/myTvShowCard';
 export default {
     name: "myMain",
+    data(){
+        return{
+         info : []
+        }
+    },
     props: {
         moviesCatalogue: Array,
         tvShowsCatalogue: Array,
-        movieVotes: Array,
-        tvShowVotes: Array
         },
     components: {
-        LangFlag,
+        myMovieCard,
+        myTvShowCard,
+    },
+    computed:{
+        getComputedMoviesStars(){
+            return this.moviesCatalogue.map(element => {
+                return Math.ceil(element.vote_average / 2)
+            }); 
+        },
+        getComputedTvShowsStars(){
+            return this.tvShowsCatalogue.map(element => {
+                return Math.ceil(element.vote_average / 2)
+            }); 
+        },
     }
 }
 </script>
@@ -72,45 +47,13 @@ export default {
     }
 
     .container{
-        background-color: brown;
-        min-height: calc(100vh - 200px);
+        background-color: rgb(31, 31, 31);
+        min-height: calc(100vh - 100px);
         padding: 4rem;
         .movie_box{
             display: flex;
             flex-wrap: wrap;
-            gap: 1.2rem;
             justify-content: center;
-            .movie_card{
-                width: calc(100% / 8);
-                height: 350px;
-                position: relative;
-                background-color: black;
-                color: white;
-                padding: 0.7rem;
-                overflow-y: auto;
-                &:hover{
-                    cursor: pointer;
-                }
-                &:hover img{
-                    transition: 0.3s;
-                    opacity: 0;
-                }
-                ul{
-                
-                list-style: none;
-                    li{
-                        margin: 5px 0;
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            position: absolute;
-                            top: 0;
-                            object-fit: cover;
-                            left: 0;
-                        }
-                    }
-                }
-            }
         }
     }
 </style>

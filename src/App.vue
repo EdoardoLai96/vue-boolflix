@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <myHeader @searchMovie="getMovies" @searchTvShow="getTvShows"/>
-    <myMain :tvShowVotes="tvShowVotes" :movieVotes="movieVotes" :moviesCatalogue="moviesCatalogue" :tvShowsCatalogue="tvShowsCatalogue"/>
+    <myMain  :moviesCatalogue="moviesCatalogue" :tvShowsCatalogue="tvShowsCatalogue"/>
     
   </div>
 </template>
@@ -29,13 +29,15 @@ export default {
     myHeader,
     myMain,
   },
+  computed:{
+    getComputedStar(){
+      return this.moviesCatalogue.vote_average
+    }
+  },
   methods:{
     getMovies(keyword){
       axios.get('https://api.themoviedb.org/3/search/movie?api_key=ec674a7dac50b060978edf782fd5605e&query='+ keyword +'')
       .then((response)=>{
-        response.data.results.forEach(element => {
-          this.movieVotes.push(Math.ceil(element.vote_average / 2))
-        });
         this.moviesCatalogue = response.data.results
       })
       .catch(function (error) {
@@ -45,9 +47,6 @@ export default {
     getTvShows(keyword){
       axios.get('https://api.themoviedb.org/3/search/tv?api_key=ec674a7dac50b060978edf782fd5605e&query='+ keyword +'')
       .then((response)=>{
-         response.data.results.forEach(element => {
-          this.tvShowVotes.push(Math.ceil(element.vote_average / 2))
-        });
         this.tvShowsCatalogue = response.data.results
       })
       .catch(function (error) {
@@ -56,18 +55,14 @@ export default {
       })
     },
 },
-// computed :{
-//       convertedMovieVote(){
-//        return this.moviesCatalogue.forEach(element => {
-//           return console.log(Math.ceil(element.vote_average / 2))
-          
-//         });
-//     }
-
-// }
 }
 </script>
 
 <style lang="scss">
 @import url('./assets/style/general.scss');
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+#app{
+  height: 100%;
+}
 </style>

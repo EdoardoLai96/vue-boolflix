@@ -1,10 +1,10 @@
 <template>
   <div class="container">
           <div class=" logo_box">
-              <img src="../assets/netflix-logo.png" alt="">
+           BOOLFLIX
           </div>
           <form class="search_box text-end">
-             cerca film <input v-model="searchedText">
+            <input v-model="searchedText">
              <button type="submit" @click.prevent="search()">Search</button>
           </form>
   </div>
@@ -29,16 +29,38 @@ export default {
 
 <style scoped lang="scss">
     .container{
-        height: 200px;
+        height: 100px;
         background-color: azure;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         padding: 1.2rem;
+        background-color: black;
         .logo_box{
-
+            color: red;
+            font-size: 2.5rem;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             img{
                 height: 100%;
             }
+        }
+        .search_box{
+            color: white;
+            font-size: 2.5rem;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            input{
+                vertical-align: middle;
+                font-size: 1rem;
+                margin-right: 5px;
+                outline: none;
+            }
+            button{
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                vertical-align: middle;
+                font-size: 1rem;
+
+            }
+
         }
     }
 </style>
