@@ -6,8 +6,8 @@
                     <img v-else src="../../assets/download.png">
                 </div>
                 <div class="flip-card-back">
-                <div class="card_element"> <h3 class="element_text">Titolo: </h3>  {{tvShow.title}}</div>
-                <div class="card_element"> <h3 class="element_text">Titolo Originale: </h3>  {{tvShow.original_title}}</div>
+                <div class="card_element"> <h3 class="element_text">Titolo: </h3>  {{tvShow.name}}</div>
+                <div class="card_element"> <h3 class="element_text">Titolo Originale: </h3>  {{tvShow.original_name}}</div>
                 <div class="card_element"> 
                   <h3 class="element_text">Lingua: </h3>   <lang-flag :iso="tvShow.original_language" />
                 </div>
