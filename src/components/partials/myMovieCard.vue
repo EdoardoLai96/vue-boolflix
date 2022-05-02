@@ -5,13 +5,13 @@
                     <img v-if="movie.poster_path" :src="'https://image.tmdb.org/t/p/w342/'+movie.poster_path" style="width: 100%; height: 100%;">
                     <img v-else src="../../assets/download.png">
                 </div>
-                <div class="flip-card-back">
-                <div class="card_element"> <h3 class="element_text">Titolo: </h3>  {{movie.title}}</div>
-                <div class="card_element"> <h3 class="element_text">Titolo Originale: </h3>  {{movie.original_title}}</div>
+                <div class="flip-card-back" style="overflow-y: auto">
+                <div class="card_element"> <h3 class="element_text">Title: </h3>  {{movie.title}}</div>
+                <div class="card_element"> <h3 class="element_text">Original Title: </h3>  {{movie.original_title}}</div>
                 <div class="card_element"> 
-                  <h3 class="element_text">Lingua: </h3>   <lang-flag :iso="movie.original_language" />
+                  <h3 class="element_text">Original Language: </h3>   <lang-flag :iso="movie.original_language" />
                 </div>
-                    Voto: <i class="fa-star" v-for="i in 5" :key="i" :class="i <= getComputedStar ? 'fa-solid' : 'fa-regular'" ></i>
+                    Rating: <i class="fa-star" v-for="i in 5" :key="i" :class="i <= getComputedStar ? 'fa-solid' : 'fa-regular'" ></i>
                 <div class="overview card_element">
                     <h3 class="element_text">Overview:</h3>
                     {{movie.overview}}
@@ -63,7 +63,7 @@ export default {
 
 
           .movie_card{
-               
+                cursor: pointer;
                 overflow-y: hidden;
                 scrollbar-width: none;
                 &::-webkit-scrollbar{
@@ -85,10 +85,11 @@ export default {
 //Flip card//
 .flip-card {
   background-color: transparent;
-  width: calc(100% / 8);
+  flex-basis: 200px;
   height: 350px;
   border: 1px solid #f1f1f1;
   color: white;
+  display: flex;
 }
 
 .flip-card-inner {

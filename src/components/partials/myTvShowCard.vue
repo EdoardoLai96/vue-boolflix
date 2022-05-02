@@ -6,12 +6,12 @@
                     <img v-else src="../../assets/download.png">
                 </div>
                 <div class="flip-card-back">
-                <div class="card_element"> <h3 class="element_text">Titolo: </h3>  {{tvShow.name}}</div>
-                <div class="card_element"> <h3 class="element_text">Titolo Originale: </h3>  {{tvShow.original_name}}</div>
+                <div class="card_element"> <h3 class="element_text">Title: </h3>  {{tvShow.name}}</div>
+                <div class="card_element"> <h3 class="element_text">Original Title: </h3>  {{tvShow.original_name}}</div>
                 <div class="card_element"> 
-                  <h3 class="element_text">Lingua: </h3>   <lang-flag :iso="tvShow.original_language" />
+                  <h3 class="element_text">Original Language: </h3>   <lang-flag :iso="tvShow.original_language" />
                 </div>
-                    Voto: <i class="fa-star" v-for="i in 5" :key="i" :class="i <= getComputedStar ? 'fa-solid' : 'fa-regular'" ></i>
+                    Rating: <i class="fa-star" v-for="i in 5" :key="i" :class="i <= getComputedStar ? 'fa-solid' : 'fa-regular'" ></i>
                 <div class="overview card_element">
                     <h3 class="element_text">Overview:</h3>
                     {{tvShow.overview}}
@@ -57,7 +57,7 @@ export default {
     }
 
    .tvShow_card{
-               
+               cursor: pointer;
                 overflow-y: hidden;
                 scrollbar-width: none;
                 &::-webkit-scrollbar{
@@ -79,7 +79,8 @@ export default {
 //Flip card//
 .flip-card {
   background-color: transparent;
-  width: calc(100% / 8);
+  display: flex;
+  flex-basis: 200px;
   height: 350px;
   border: 1px solid #f1f1f1;
   color: white;
