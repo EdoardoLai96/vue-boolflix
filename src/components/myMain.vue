@@ -1,14 +1,14 @@
 <template>
 <div class="container" id="main_container">
     <div id="input_search_box">
-        <h1>Type a Movie or a Tv Show title</h1>
+        <h1>Type a Movie or a Tv Show title:</h1>
         <input v-model="searchedTextMain" @keypress.enter="searchMain()" type="text" >
     </div>
-    <h1 id="movies_headline"></h1>
+    <h1 id="movies_headline">MOVIES</h1>
     <div class="movie_box">
         <myMovieCard :movie="movie" v-for="(movie, index) in moviesCatalogue" :key="'movie-'+ index" />
     </div>
-    <h1 id="tv_shows_headline"></h1>
+    <h1 id="tv_shows_headline">TV SHOWS</h1>
     <div class="movie_box">
         <myTvShowCard :tvShow="tvShow" v-for="(tvShow, index) in tvShowsCatalogue" :key="'tvShow-'+ index" />
     </div>
@@ -52,13 +52,17 @@ export default {
             this.$emit("searchTvShowMain", this.searchedTextMain)
             if(document.getElementById("input_search_box")){
             document.getElementById("input_search_box").remove();
+            document.getElementById("movies_headline").style.display = "block",
+            document.getElementById("tv_shows_headline").style.display = "block"
+            document.getElementById("main_container").style.display = "block"
+        }
+
+        }
+    },
+    Unmounted(){
             document.getElementById("movies_headline").innerHTML = "MOVIES",
             document.getElementById("tv_shows_headline").innerHTML = "TV SHOWS"
-            document.getElementById("main_container").style.display = "block"
 
-        }
-
-        }
     },
 }
 </script>
@@ -88,7 +92,11 @@ export default {
                width: 100%;
                 height: 50px;
                 font-size: 2rem;
+                outline: none;
             }
+        }
+        #movies_headline, #tv_shows_headline{
+            display: none;
         }
         .movie_box{
             display: flex;
